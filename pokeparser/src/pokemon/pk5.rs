@@ -48,7 +48,7 @@ impl PK5 {
         result
     }
 
-    fn empty() -> Self {
+    pub fn empty() -> Self {
         Self {
             id: 0,
             species: String::from("MissingNo."),
