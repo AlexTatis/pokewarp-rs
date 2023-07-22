@@ -32,7 +32,7 @@ function newSlotSelectedHandler() {
 <template>
     <div class="w-32 h-32 shadow-lg rounded-lg bg-white" :class="{' border-red-500 border-dashed border-2': selected}" @click="selected = !selected">
         <div v-if="PROPS.pkm && PROPS.pkm.id != 0" class="flex items-center h-full pixelated gap-2">
-            <img :src="`/pokesprite/pokemon-gen8/regular/${PROPS.pkm.species.toLowerCase()}.png`" class="w-32 animate-bounce">
+            <img :src="`/pokesprite/pokemon-gen8/regular/${PROPS.pkm.species.toLowerCase()}.png`" class="w-32" :class="{'animate-bounce': selected}">
         </div>
     </div>
 </template>
