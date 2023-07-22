@@ -1,0 +1,6 @@
+[submodule "pokewarp-web/frontend/public/pokesprite"]
+	path = pokewarp-web/frontend/public/pokesprite
+	url = https://github.com/msikma/pokesprite.git
+[submodule "pokewarp-web/frontend/public/sprites"]
+	path = pokewarp-web/frontend/public/sprites
+	url = https://github.com/PokeAPI/sprites.git

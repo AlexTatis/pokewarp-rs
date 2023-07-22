@@ -1,0 +1,6 @@
+[submodule "frontend/public/pokesprite"]
+	path = frontend/public/pokesprite
+	url = https://github.com/msikma/pokesprite.git
+[submodule "frontend/public/sprites"]
+	path = frontend/public/sprites
+	url = https://github.com/PokeAPI/sprites.git
