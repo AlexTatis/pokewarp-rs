@@ -88,7 +88,8 @@ export const EMPTY_PK5: PK5 = {
 
 export type Events = {
     setOverview: PK5,
-    newSlotSelected: undefined
+    newSlotSelected: undefined,
+    saveParsed: PK5[]
 }
 
 export const emitter = mitt<Events>()

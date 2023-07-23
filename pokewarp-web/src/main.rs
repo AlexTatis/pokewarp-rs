@@ -13,7 +13,7 @@ async fn main() {
     let app = Router::new()
         // `GET /` goes to `root`
         .route("/", get(root))
-        .route("/file", post(read_file));
+        .route("/api/parse", post(parse_sav));
 
     // run our app with hyper
     // `axum::Server` is a re-export of `hyper::Server`
@@ -31,7 +31,7 @@ async fn root() -> &'static str {
 }
 
 
-async fn read_file(mut multipart: Multipart) -> (StatusCode, Json<[PK5; 6]>) {
+async fn parse_sav(mut multipart: Multipart) -> (StatusCode, Json<[PK5; 6]>) {
     let pokemons = pokedex::Pokemons::new("./data/pokedex.json");
     let abilities = pokedex::Abilities::new("./data/abilities.json");
     let moves = pokedex::Moves::new("./data/moves.json");

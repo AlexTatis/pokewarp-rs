@@ -2,13 +2,9 @@
 import { ref } from 'vue';
 import PartySlot from './PartySlot.vue'
 import draggable from 'vuedraggable'
-import { PK5 } from '../utils'
+import { PK5, emitter, EMPTY_PK5 } from '../utils'
 
-const PROPS = defineProps<{
-    party: PK5[]
-}>();
-
-let party = ref(Array.from(PROPS.party)) // Is this fine?
+let party = ref(Array.from([ EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5 ]))
 const draggedContext = ref();
 const relatedContext = ref();
 const receiverId = ref("");
@@ -33,6 +29,8 @@ function onEnd(e: any) {
     party.value[e.newIndex] = relatedContext.value.element  
 
 }
+
+emitter.on("saveParsed", parsedParty => party.value = parsedParty)
 
 </script>
 
