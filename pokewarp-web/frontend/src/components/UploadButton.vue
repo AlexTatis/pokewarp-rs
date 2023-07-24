@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useFetch } from '@vueuse/core'
 import { PK5, emitter } from '../utils';
-import { PlusIcon } from '@heroicons/vue/24/solid'
+import { ArrowUpTrayIcon } from '@heroicons/vue/24/solid'
 import { VNodeRef, ref } from 'vue';
 
 const input = ref<VNodeRef>();
@@ -23,7 +23,7 @@ async function parseSave(event: Event) {
     if (statusCode.value != 200) return alert("Error when parsing file");
 
     if (!data.value) return;
-    
+
     emitter.emit('saveParsed', data.value);
 }
 
@@ -34,12 +34,8 @@ function clickInput() {
 </script>
 
 <template>
-    <div class="bg-primary mt-3 mr-3 px-2 py-4 text-white rounded-md flex gap-4">
-        <button @click="clickInput" class="btn btn-square"><PlusIcon class="w-8" /></button>
-        <button @click="clickInput" class="btn btn-square"><PlusIcon class="w-8" /></button>
-        <button @click="clickInput" class="btn btn-square"><PlusIcon class="w-8" /></button>
-        <button @click="clickInput" class="btn btn-square"><PlusIcon class="w-8" /></button>
-        <button @click="clickInput" class="btn btn-square"><PlusIcon class="w-8" /></button>
-        <input type="file" class="file-input w-full max-w-xs file-input-secondary hidden" @change="parseSave" id="file-input">
-    </div>
+    <button @click="clickInput" class="btn btn-square btn-primary">
+        <ArrowUpTrayIcon class="w-8" />
+    </button>
+    <input type="file" class="file-input w-full max-w-xs file-input-secondary hidden" @change="parseSave" id="file-input">
 </template>
