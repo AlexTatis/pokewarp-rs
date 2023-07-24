@@ -9,6 +9,8 @@ pub struct Save<'a> {
     items: &'a pokedex::Items,
 }
 
+pub type Party = [PK5; 6];
+
 impl<'a> Save<'a> {
     pub fn new(
         save_file: &'a [u8],
@@ -25,16 +27,15 @@ impl<'a> Save<'a> {
         &self.save_file[0x18E08..0x19333 + 1]
     }
 
-    pub fn get_party(&self) -> [PK5; 6] {
-        let party: [PK5; 6] = [
-            PK5::new(&self.save_file[0x18E08 + 220 * 0..0x18E08 + 220 * 1], self.pokemons, self.abilities, self.moves, self.natures, self.items),
-            PK5::new(&self.save_file[0x18E08 + 220 * 1..0x18E08 + 220 * 2], self.pokemons, self.abilities, self.moves, self.natures, self.items),
-            PK5::new(&self.save_file[0x18E08 + 220 * 2..0x18E08 + 220 * 3], self.pokemons, self.abilities, self.moves, self.natures, self.items),
-            PK5::new(&self.save_file[0x18E08 + 220 * 3..0x18E08 + 220 * 4], self.pokemons, self.abilities, self.moves, self.natures, self.items),
-            PK5::new(&self.save_file[0x18E08 + 220 * 4..0x18E08 + 220 * 5], self.pokemons, self.abilities, self.moves, self.natures, self.items),
-            PK5::new(&self.save_file[0x18E08 + 220 * 5..0x18E08 + 220 * 6], self.pokemons, self.abilities, self.moves, self.natures, self.items),
-        ];
+    pub fn get_party(&self) -> Option<Party> {
+        Some([
+            PK5::new(&self.save_file[0x18E08 + 220 * 0..0x18E08 + 220 * 1], self.pokemons, self.abilities, self.moves, self.natures, self.items)?,
+            PK5::new(&self.save_file[0x18E08 + 220 * 1..0x18E08 + 220 * 2], self.pokemons, self.abilities, self.moves, self.natures, self.items)?,
+            PK5::new(&self.save_file[0x18E08 + 220 * 2..0x18E08 + 220 * 3], self.pokemons, self.abilities, self.moves, self.natures, self.items)?,
+            PK5::new(&self.save_file[0x18E08 + 220 * 3..0x18E08 + 220 * 4], self.pokemons, self.abilities, self.moves, self.natures, self.items)?,
+            PK5::new(&self.save_file[0x18E08 + 220 * 4..0x18E08 + 220 * 5], self.pokemons, self.abilities, self.moves, self.natures, self.items)?,
+            PK5::new(&self.save_file[0x18E08 + 220 * 5..0x18E08 + 220 * 6], self.pokemons, self.abilities, self.moves, self.natures, self.items)?,
+        ])
 
-        party
     }
 }

@@ -16,11 +16,12 @@ async function parseSave(event: Event) {
 
     formData.append('file', files[0]);
 
-    const { data } = await useFetch<PK5[]>('/api/parse', {
+    const { data, statusCode } = await useFetch<PK5[]>('/api/parse', {
         body: formData,
     }).post().json();
 
-    
+    if (statusCode.value != 200) return alert("Error when parsing file");
+
     if (!data.value) return;
     
     emitter.emit('saveParsed', data.value);

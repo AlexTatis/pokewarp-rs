@@ -23,7 +23,7 @@ pub struct PK5 {
     pub level: u16,
     pub is_egg: bool,
     pub item: ItemEntry,
-    pub pokeball: ItemEntry
+    pub pokeball: ItemEntry,
 }
 
 const SHUFFLING_PATTERNS: &[&str; 24] = &[
@@ -100,7 +100,7 @@ impl PK5 {
         pokedex_moves: &pokedex::Moves,
         pokedex_natures: &pokedex::Natures,
         pokedex_items: &pokedex::Items,
-    ) -> Self {
+    ) -> Option<Self> {
         let pid = LittleEndian::read_u32(&raw_data[..0x4]);
         let checksum = LittleEndian::read_u16(&raw_data[0x6..0x8]);
         let shuffle_index = (((pid & 0x3E000) >> 0xD) % 24) as usize;
@@ -152,49 +152,31 @@ impl PK5 {
         // Check if the Pokemon is null
 
         if LittleEndian::read_u16(&final_data[0x8..0x10]) == 0 {
-            Self::empty()
+            Some(Self::empty())
         } else {
-            PK5 {
+            Some(PK5 {
                 id: LittleEndian::read_u16(&final_data[0x8..0x10]),
                 species: pokedex_pokemons
-                    .get(LittleEndian::read_u16(&final_data[0x8..0x10]))
-                    .expect(format!("{}", LittleEndian::read_u16(&final_data[0x8..0x10])).as_str())
+                    .get(LittleEndian::read_u16(&final_data[0x8..0x10]))?
                     .name,
                 item_id: LittleEndian::read_u16(&final_data[0xA..0xC]),
                 exp: LittleEndian::read_u32(&final_data[0x10..0x14]),
-                ability: pokedex_abilities.get(final_data[0x15] as u16).unwrap().name,
+                ability: pokedex_abilities.get(final_data[0x15] as u16)?.name,
                 moves: vec![
                     Move::from_entry(
-                        pokedex_moves
-                            .get(LittleEndian::read_u16(&final_data[0x28..0x2A]))
-                            .expect(
-                                format!("{}", LittleEndian::read_u16(&final_data[0x28..0x2A]))
-                                    .as_str(),
-                            ),
+                        pokedex_moves.get(LittleEndian::read_u16(&final_data[0x28..0x2A]))?,
                         final_data[0x30],
                     ),
                     Move::from_entry(
-                        pokedex_moves
-                            .get(LittleEndian::read_u16(&final_data[0x2A..0x2C]))
-                            .expect(
-                                format!("{}", LittleEndian::read_u16(&final_data[0x2A..0x2C]))
-                                    .as_str(),
-                            ),
+                        pokedex_moves.get(LittleEndian::read_u16(&final_data[0x2A..0x2C]))?,
                         final_data[0x31],
                     ),
                     Move::from_entry(
-                        pokedex_moves
-                            .get(LittleEndian::read_u16(&final_data[0x2C..0x2E]))
-                            .expect(
-                                format!("{}", LittleEndian::read_u16(&final_data[0x8..0x10]))
-                                    .as_str(),
-                            ),
+                        pokedex_moves.get(LittleEndian::read_u16(&final_data[0x2C..0x2E]))?,
                         final_data[0x32],
                     ),
                     Move::from_entry(
-                        pokedex_moves
-                            .get(LittleEndian::read_u16(&final_data[0x2E..0x30]))
-                            .unwrap(),
+                        pokedex_moves.get(LittleEndian::read_u16(&final_data[0x2E..0x30]))?,
                         final_data[0x33],
                     ),
                 ],
@@ -214,15 +196,15 @@ impl PK5 {
                     spa: final_data[0x1C],
                     spd: final_data[0x1D],
                 },
-                nature: pokedex_natures.get(final_data[0x41].into()).unwrap().name,
+                nature: pokedex_natures.get(final_data[0x41].into())?.name,
                 nickname: Self::populate_nickname(&final_data[0x48..0x5D]),
                 happiness: final_data[0x14],
                 gender: Gender::from_byte(final_data[0x40]),
                 level: 100,
                 is_egg: ((LittleEndian::read_u32(&final_data[0x38..0x3C]) >> 30) & 0x1) == 1,
-                item: pokedex_items.get(LittleEndian::read_u16(&final_data[0xA..0xC])).unwrap(),
-                pokeball: pokedex_items.get(final_data[0x83] as u16).unwrap()
-            }
+                item: pokedex_items.get(LittleEndian::read_u16(&final_data[0xA..0xC]))?,
+                pokeball: pokedex_items.get(final_data[0x83] as u16)?,
+            })
         }
     }
 }
