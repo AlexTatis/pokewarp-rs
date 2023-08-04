@@ -2,13 +2,11 @@ use axum::{
     routing::{get, post},
     Router,
 };
-use axum_login::{AuthLayer, axum_sessions::SessionLayer, axum_sessions::async_session::MemoryStore, RequireAuthorizationLayer};
+use axum_login::{AuthLayer, axum_sessions::SessionLayer, axum_sessions::async_session::MemoryStore};
 use handlers::auth::SurrealUserStore;
 use rand::Rng;
-use surrealdb::{Surreal, engine::remote::ws::{Ws, Client}, opt::auth::Root, sql::Thing};
+use surrealdb::{Surreal, engine::remote::ws::{Ws, Client}, opt::auth::Root};
 use std::{net::SocketAddr, sync::Arc};
-
-use crate::handlers::auth::User;
 
 pub mod handlers;
 
@@ -35,7 +33,7 @@ async fn main() {
     let auth_layer = AuthLayer::new(user_store, &secret);
 
     
-    type RequireAuth = RequireAuthorizationLayer<Thing, User, ()>;
+    // type RequireAuth = RequireAuthorizationLayer<Thing, User, ()>;
 
 
     let shared_state = Arc::new(AppState {

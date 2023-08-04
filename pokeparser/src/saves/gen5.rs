@@ -29,8 +29,8 @@ impl<'a> Save<'a> {
 
     pub fn get_party(&self) -> Option<Party> {
         Some([
-            PK5::new(&self.save_file[0x18E08 + 220 * 0..0x18E08 + 220 * 1], self.pokemons, self.abilities, self.moves, self.natures, self.items)?,
-            PK5::new(&self.save_file[0x18E08 + 220 * 1..0x18E08 + 220 * 2], self.pokemons, self.abilities, self.moves, self.natures, self.items)?,
+            PK5::new(&self.save_file[..0x18E08 + 220], self.pokemons, self.abilities, self.moves, self.natures, self.items)?,
+            PK5::new(&self.save_file[0x18E08 + 220..0x18E08 + 220 * 2], self.pokemons, self.abilities, self.moves, self.natures, self.items)?,
             PK5::new(&self.save_file[0x18E08 + 220 * 2..0x18E08 + 220 * 3], self.pokemons, self.abilities, self.moves, self.natures, self.items)?,
             PK5::new(&self.save_file[0x18E08 + 220 * 3..0x18E08 + 220 * 4], self.pokemons, self.abilities, self.moves, self.natures, self.items)?,
             PK5::new(&self.save_file[0x18E08 + 220 * 4..0x18E08 + 220 * 5], self.pokemons, self.abilities, self.moves, self.natures, self.items)?,

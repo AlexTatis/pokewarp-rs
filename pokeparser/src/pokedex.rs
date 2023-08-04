@@ -7,7 +7,7 @@ pub struct Pokemons (HashMap<String, PokedexEntry>);
 
 impl Pokemons {
     pub fn new(path: &str) -> Self {
-        let reader = BufReader::new(File::open(path).expect(format!("Could not open {}", path).as_str()));
+        let reader = BufReader::new(File::open(path).unwrap_or_else(|_| panic!("Could not open {}", path)));
         Self(serde_json::from_reader(reader).expect("Could not parse pokedex.json"))
     }
 
@@ -22,7 +22,7 @@ pub struct Abilities (HashMap<String, AbilityEntry>);
 
 impl Abilities {
     pub fn new(path: &str) -> Self {
-        let reader = BufReader::new(File::open(path).expect(format!("Could not open {}", path).as_str()));
+        let reader = BufReader::new(File::open(path).unwrap_or_else(|_| panic!("Could not open {}", path)));
         Self(serde_json::from_reader(reader).expect("Could not parse pokedex.json"))
     }
 
@@ -37,7 +37,7 @@ pub struct Moves (HashMap<String, MoveEntry>);
 
 impl Moves {
     pub fn new(path: &str) -> Self {
-        let reader = BufReader::new(File::open(path).expect(format!("Could not open {}", path).as_str()));
+        let reader = BufReader::new(File::open(path).unwrap_or_else(|_| panic!("Could not open {}", path)));
         Self(serde_json::from_reader(reader).expect("Could not parse pokedex.json"))
     }
 
@@ -52,7 +52,7 @@ pub struct Natures (Vec<NatureEntry>);
 
 impl Natures {
     pub fn new(path: &str) -> Self {
-        let reader = BufReader::new(File::open(path).expect(format!("Could not open {}", path).as_str()));
+        let reader = BufReader::new(File::open(path).unwrap_or_else(|_| panic!("Could not open {}", path)));
         Self(serde_json::from_reader(reader).expect("Could not parse pokedex.json"))
     }
 
@@ -67,7 +67,7 @@ pub struct Items (HashMap<String, ItemEntry>);
 
 impl Items {
     pub fn new(path: &str) -> Self {
-        let reader = BufReader::new(File::open(path).expect(format!("Could not open {}", path).as_str()));
+        let reader = BufReader::new(File::open(path).unwrap_or_else(|_| panic!("Could not open {}", path)));
         Self(serde_json::from_reader(reader).expect("Could not parse pokedex.json"))
     }
 

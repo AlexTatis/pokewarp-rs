@@ -39,7 +39,7 @@ impl PK5 {
     fn populate_nickname(raw: &[u8]) -> String {
         let mut result = String::from("");
 
-        raw.into_iter().for_each(|x| {
+        raw.iter().for_each(|x| {
             if *x != 0xff && *x != 0x0 {
                 result.push(char::from(*x))
             }
@@ -181,8 +181,8 @@ impl PK5 {
                     ),
                 ],
                 ivs: Stats {
-                    hp: (LittleEndian::read_u32(&final_data[0x38..0x3C]) >> 00 & 0x1F) as u8,
-                    atk: (LittleEndian::read_u32(&final_data[0x38..0x3C]) >> 05 & 0x1F) as u8,
+                    hp: (LittleEndian::read_u32(&final_data[0x38..0x3C]) & 0x1F) as u8,
+                    atk: (LittleEndian::read_u32(&final_data[0x38..0x3C]) >> 5 & 0x1F) as u8,
                     def: (LittleEndian::read_u32(&final_data[0x38..0x3C]) >> 10 & 0x1F) as u8,
                     spe: (LittleEndian::read_u32(&final_data[0x38..0x3C]) >> 15 & 0x1F) as u8,
                     spa: (LittleEndian::read_u32(&final_data[0x38..0x3C]) >> 20 & 0x1F) as u8,

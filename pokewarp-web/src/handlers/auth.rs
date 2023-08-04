@@ -1,13 +1,15 @@
 use std::sync::Arc;
 
-use axum::{async_trait, extract::State, http::StatusCode, Json, response::IntoResponse};
-use axum_login::{secrecy::{SecretVec, ExposeSecret}, AuthUser, UserStore, extractors::AuthContext};
+use axum::{async_trait, extract::State, http::StatusCode, response::IntoResponse, Json};
+use axum_login::{
+    extractors::AuthContext,
+    secrecy::{ExposeSecret, SecretVec},
+    AuthUser, UserStore,
+};
 use axum_macros::debug_handler;
-use eyre::ErrReport;
 use password_auth::{generate_hash, verify_password, VerifyError};
 use serde::{Deserialize, Serialize};
-use surrealdb::{engine::remote::ws::Client, sql::Thing, Surreal, Response};
-
+use surrealdb::{engine::remote::ws::Client, sql::Thing, Response, Surreal};
 
 use crate::AppState;
 
@@ -53,7 +55,7 @@ impl UserStore<Thing, ()> for SurrealUserStore {
         self.conn
             .select(("user", user_id.clone()))
             .await
-            .map_err(|err| eyre::Error::new(err))
+            .map_err(eyre::Error::new)
     }
 }
 
@@ -63,13 +65,13 @@ pub struct SignupReq {
     password: String,
 }
 
-type LoginReq = SignupReq;  // In the future we may want to differentiate between Login and Signup
+type LoginReq = SignupReq; // In the future we may want to differentiate between Login and Signup
 
 pub enum AuthError {
     SurrealError(surrealdb::Error),
     EyreReport(eyre::Report),
     VerifyError(VerifyError),
-    NoUser
+    NoUser,
 }
 
 impl From<surrealdb::Error> for AuthError {
@@ -96,7 +98,10 @@ impl IntoResponse for AuthError {
             AuthError::SurrealError(err) => (StatusCode::INTERNAL_SERVER_ERROR, err.to_string()),
             AuthError::EyreReport(err) => (StatusCode::INTERNAL_SERVER_ERROR, err.to_string()),
             AuthError::VerifyError(err) => (StatusCode::UNAUTHORIZED, err.to_string()),
-            AuthError::NoUser => (StatusCode::UNAUTHORIZED, String::from("No user found with that username"))
+            AuthError::NoUser => (
+                StatusCode::UNAUTHORIZED,
+                String::from("No user found with that username"),
+            ),
         };
 
         (status, body).into_response()
@@ -110,40 +115,50 @@ pub async fn signup_handler(
 ) -> Result<StatusCode, AuthError> {
     state.db.use_ns("dev").use_db("pokewarp").await?;
 
-
-
     let password_hash = generate_hash(json.password);
 
-    let created: UserRecord = state.db.create("user").content(UserRecord {
-        name: json.name,
-        password_hash,
-    }).await?;
+    let _created: UserRecord = state
+        .db
+        .create("user")
+        .content(UserRecord {
+            name: json.name,
+            password_hash,
+        })
+        .await?;
 
-    Ok(StatusCode::OK.into())
+    Ok(StatusCode::OK)
 }
 
 type Auth = AuthContext<Thing, User, SurrealUserStore, ()>;
 
 #[debug_handler]
-pub async fn login_handler(State(state): State<Arc<AppState>>, mut auth: Auth, Json(json): Json<LoginReq>) -> Result<StatusCode, AuthError> {
-    
+pub async fn login_handler(
+    State(state): State<Arc<AppState>>,
+    mut auth: Auth,
+    Json(json): Json<LoginReq>,
+) -> Result<StatusCode, AuthError> {
     state.db.use_ns("dev").use_db("pokewarp").await?;
 
-    let mut query: Response = state.db.query("SELECT * FROM user WHERE name = $name LIMIT 1;").bind(("name", json.name)).await?;
+    let mut query: Response = state
+        .db
+        .query("SELECT * FROM user WHERE name = $name LIMIT 1;")
+        .bind(("name", json.name))
+        .await?;
     let user: Option<User> = query.take(0)?;
 
     if let Some(user) = user {
-
-        match verify_password(json.password, std::str::from_utf8(user.get_password_hash().expose_secret()).unwrap()) {
+        match verify_password(
+            json.password,
+            std::str::from_utf8(user.get_password_hash().expose_secret()).unwrap(),
+        ) {
             Ok(_) => {
                 auth.login(&user).await?;
-            },
-            Err(err) => return Err(AuthError::from(err))
+            }
+            Err(err) => return Err(AuthError::from(err)),
         }
-
     } else {
-        return Err(AuthError::NoUser)
+        return Err(AuthError::NoUser);
     }
 
-    Ok(StatusCode::OK.into())
+    Ok(StatusCode::OK)
 }
