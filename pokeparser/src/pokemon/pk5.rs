@@ -24,6 +24,9 @@ pub struct PK5 {
     pub is_egg: bool,
     pub item: ItemEntry,
     pub pokeball: ItemEntry,
+    pub ot_name: String,
+    pub ot_id: u16,
+    pub ot_sid: u16
 }
 
 const SHUFFLING_PATTERNS: &[&str; 24] = &[
@@ -90,6 +93,9 @@ impl PK5 {
                 alias: String::from(""),
                 sprite: String::from(""),
             },
+            ot_id: 0,
+            ot_sid: 0,
+            ot_name: String::from("")
         }
     }
 
@@ -204,6 +210,9 @@ impl PK5 {
                 is_egg: ((LittleEndian::read_u32(&final_data[0x38..0x3C]) >> 30) & 0x1) == 1,
                 item: pokedex_items.get(LittleEndian::read_u16(&final_data[0xA..0xC]))?,
                 pokeball: pokedex_items.get(final_data[0x83] as u16)?,
+                ot_id: LittleEndian::read_u16(&final_data[0xC..0xE]),
+                ot_sid: LittleEndian::read_u16(&final_data[0xE..0x10]),
+                ot_name: Self::populate_nickname(&final_data[0x68..0x78])
             })
         }
     }

@@ -51,6 +51,15 @@ Chart.register(Title, Tooltip, Legend, RadialLinearScale, PointElement, LineElem
             <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">Gender</p>
             <p class="p-1">{{ pkm.gender }}</p>
 
+            <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">OT Name</p>
+            <p class="p-1">{{ pkm.ot_name }}</p>
+
+            <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">OT Id.</p>
+            <p class="p-1">{{ pkm.ot_id }}</p>
+
+            <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">OT Secret Id.</p>
+            <p class="p-1">{{ pkm.ot_sid }}</p>
+
         </div>
         <Radar v-if="activeTab == 'ivs-evs'" :options="{ responsive: true }" :data="{
             labels: ['Atk', 'Def', 'HP', 'SpAtk', 'SpDef', 'Speed'],

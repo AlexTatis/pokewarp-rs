@@ -16,7 +16,10 @@ export interface PK5 {
     level: number,
     is_egg: boolean,
     item: Item,
-    pokeball: Item
+    pokeball: Item,
+    ot_name: String,
+    ot_id: number,
+    ot_sid: number
 }
 
 interface Stats {
@@ -83,7 +86,10 @@ export const EMPTY_PK5: PK5 = {
         name: "",
         alias: "",
         sprite: "",
-    }
+    },
+    ot_id: 0,
+    ot_sid: 0,
+    ot_name: ""
 }
 
 export type Events = {
