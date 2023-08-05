@@ -38,7 +38,7 @@ function onEnd() {
 </script>
 
 <template>
-    <draggable id="box" v-model="boxes" class="grid grid-cols-6 grid-rows-5 gap-5" group="pkm" :move="onMove" @end="onEnd">
+    <draggable id="box" v-model="boxes" class="md:grid grid-cols-6 grid-rows-5 gap-5 flex flex-wrap justify-evenly" group="pkm" filter=".no-drag" :move="onMove" @end="onEnd">
         <template #item="{ element: pkm }">
             <BoxSlot :pkm="pkm" />
         </template>

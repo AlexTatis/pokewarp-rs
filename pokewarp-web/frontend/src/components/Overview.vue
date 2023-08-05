@@ -14,13 +14,13 @@ Chart.register(Title, Tooltip, Legend, RadialLinearScale, PointElement, LineElem
 </script>
 
 <template>
-    <div v-if="pkm && pkm.id" class="bg-white shadow-md rounded-s-md overflow-hidden">
-        <div class="bg-slate-700 py-3 px-3 mb-8 text-white flex items-center justify-between">
+    <div v-if="pkm && pkm.id" class="bg-white shadow-md rounded-s-md pb-1">
+        <div class="bg-slate-700 py-3 px-3 mb-8 text-white flex items-center justify-between sticky top-0 z-50">
             <img :src="`/sprites/sprites/items/${pkm.pokeball.sprite}.png`" class="pixelated w-14">
             <p class="font-bold text-2xl ">{{ pkm.nickname }}</p>
             <p class="text-xl">Lvl. {{ pkm.level }}</p>
         </div>
-        <div class="flex h-48 mb-4">
+        <div class="flex h-48 mb-10 px-3 md:px-0">
             <div class="ml-3 pr-3">
                 <img :src="`https://projectpokemon.org/images/normal-sprite/${pkm.species.toLowerCase()}.gif`" alt=""
                     class="pixelated w-48">
