@@ -14,47 +14,45 @@ import { PKMS } from './data';
     <div class="h-screen w-64 bg-[#b3ec2f] absolute -left-24 -skew-x-12" />
   </div>
   <div class="md:flex pt-2 z-10 relative">
-    <div class="left-0 basis-1/4 md:flex flex-col gap-8 items-center hidden">
-      <h2 class="font-black text-5xl text-center flex gap-3 items-baseline">
-       Party
-      </h2>
+    <div class="left-0 basis-1/4 md:flex flex-col gap-6 items-center hidden">
+      <h2 class="font-black text-4xl text-center rounded-full shadow w-52 bg-white p-2 h-16">Party</h2>
       <Party />
     </div>
     <div class="basis-2/4 flex flex-col gap-8 items-center">
-      <h2 class="font-black text-5xl text-center flex gap-3 items-baseline">
-        <div class="md:hidden">
-        </div>
-        Boxes
-      </h2>
+      <div class="rounded-full shadow w-52 bg-white p-2 flex items-center justify-between h-16">
+        <div class="bg-[#303030] w-4 h-4 mask mask-triangle-3 btn btn-ghost btn-square" />
+        <h2 class="font-black text-4xl text-center">Box 1</h2>
+        <div class="bg-[#303030] w-4 h-4 mask mask-triangle-4 btn btn-ghost btn-square" />
+      </div>
       <Box :boxes="PKMS" />
       <div class="sticky bottom-2 flex items-center gap-3">
         <Avatar />
         <UploadButton />
         <!-- <label for="my-drawer" class="btn bg-white shadow-md btn-ghost h-16 rounded-full drawer-button md:hidden">Open party</label> -->
-        </div>
       </div>
-      <div class="basis-1/4">
-        <Overview class="h-full hidden md:block" />
+    </div>
+    <div class="basis-1/4">
+      <Overview class="h-full hidden md:block" />
+    </div>
+
+    <!--SMALL VIEWPORT VERSIONS-->
+
+    <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle md:hidden">
+      <form method="dialog" class="modal-box p-0">
+        <Overview />
+      </form>
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+    </dialog>
+
+    <div class="drawer md:hidden">
+      <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content">
       </div>
-      
-      <!--SMALL VIEWPORT VERSIONS-->
-      
-      <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle md:hidden">
-        <form method="dialog" class="modal-box p-0">
-          <Overview />
-        </form>
-        <form method="dialog" class="modal-backdrop">
-          <button>close</button>
-        </form>
-      </dialog>
-      
-      <div class="drawer md:hidden">
-        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content">
-        </div>
-        <div class="drawer-side">
-          <label for="my-drawer" class="drawer-overlay"></label>
-          <div class="h-full flex items-center pl-1">
+      <div class="drawer-side">
+        <label for="my-drawer" class="drawer-overlay"></label>
+        <div class="h-full flex items-center pl-1">
           <Party />
         </div>
       </div>
