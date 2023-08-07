@@ -1,6 +1,20 @@
 use std::{fs::File, io::BufReader, collections::HashMap};
 use crate::utils::{PokedexEntry, AbilityEntry, MoveEntry, NatureEntry, ItemEntry};
+use thiserror::Error;
 
+#[derive(Error, Debug)]
+pub enum Error {
+    #[error("No pokemon found with the given id")]
+    PokemonError,
+    #[error("No ability found with the given id")]
+    AbilityError,
+    #[error("No move found with the given id")]
+    MoveError,
+    #[error("No nature found with the given id")]
+    NatureError,
+    #[error("No item found with the given id")]
+    ItemError
+} 
 
 #[derive(Debug)]
 pub struct Pokemons (HashMap<String, PokedexEntry>);
@@ -11,8 +25,8 @@ impl Pokemons {
         Self(serde_json::from_reader(reader).expect("Could not parse pokedex.json"))
     }
 
-    pub fn get(&self, num: u16) -> Option<PokedexEntry> {
-        self.0.values().find(|e| e.num == num).cloned()
+    pub fn get(&self, num: u16) -> Result<PokedexEntry, Error> {
+        self.0.values().find(|e| e.num == num).ok_or(Error::PokemonError).cloned()
     }
 }
 
@@ -26,8 +40,8 @@ impl Abilities {
         Self(serde_json::from_reader(reader).expect("Could not parse pokedex.json"))
     }
 
-    pub fn get(&self, num: u16) -> Option<AbilityEntry> {
-        self.0.values().find(|e| e.num == num).cloned()
+    pub fn get(&self, num: u16) -> Result<AbilityEntry, Error> {
+        self.0.values().find(|e| e.num == num).ok_or(Error::AbilityError).cloned()
     }
 }
 
@@ -41,8 +55,8 @@ impl Moves {
         Self(serde_json::from_reader(reader).expect("Could not parse pokedex.json"))
     }
 
-    pub fn get(&self, num: u16) -> Option<MoveEntry> {
-        self.0.values().find(|e| e.num == num).cloned()
+    pub fn get(&self, num: u16) -> Result<MoveEntry, Error> {
+        self.0.values().find(|e| e.num == num).ok_or(Error::MoveError).cloned()
     }
 }
 
@@ -56,8 +70,8 @@ impl Natures {
         Self(serde_json::from_reader(reader).expect("Could not parse pokedex.json"))
     }
 
-    pub fn get(&self, num: usize) -> Option<NatureEntry> {
-        self.0.get(num).cloned()
+    pub fn get(&self, num: usize) -> Result<NatureEntry, Error> {
+        self.0.get(num).ok_or(Error::NatureError).cloned()
     }
 }
 
@@ -71,7 +85,7 @@ impl Items {
         Self(serde_json::from_reader(reader).expect("Could not parse pokedex.json"))
     }
 
-    pub fn get(&self, num: u16) -> Option<ItemEntry> {
-        self.0.values().find(|e| e.num == num).cloned()
+    pub fn get(&self, num: u16) -> Result<ItemEntry, Error> {
+        self.0.values().find(|e| e.num == num).ok_or(Error::ItemError).cloned()
     }
 }

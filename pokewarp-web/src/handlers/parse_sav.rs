@@ -53,8 +53,8 @@ pub async fn parse_handler(mut multipart: Multipart) -> Result<Json<Party>> {
         );
 
         match gen5_save.get_party() {
-            Some(pkms) => return Ok(Json(pkms)),
-            None => return Err(ParseFileError::ParseError.into()),
+            Ok(pkms) => return Ok(Json(pkms)),
+            Err(_) => return Err(ParseFileError::ParseError.into())
         }
     }
 

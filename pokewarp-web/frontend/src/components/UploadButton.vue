@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFetch } from '@vueuse/core'
-import { PK5, emitter } from '../utils';
+import { EMPTY_PK5, PK5, emitter } from '../utils';
 import { ArrowUpTrayIcon } from '@heroicons/vue/24/solid'
 import { VNodeRef, ref } from 'vue';
 
@@ -16,15 +16,18 @@ async function parseSave(event: Event) {
 
     formData.append('file', files[0]);
 
-    const { data, statusCode } = await useFetch<PK5[]>('/api/parse', {
+    const { data, statusCode } = await useFetch('/api/parse', {
         body: formData,
-    }).post().json();
+    }).post().json<(PK5 | null)[]>();
 
     if (statusCode.value != 200) return alert("Error when parsing file");
 
     if (!data.value) return;
 
-    emitter.emit('saveParsed', data.value);
+    emitter.emit('saveParsed', data.value.map(x => {
+        if (!x) return EMPTY_PK5
+        return x  
+    }));
 }
 
 function clickInput() {

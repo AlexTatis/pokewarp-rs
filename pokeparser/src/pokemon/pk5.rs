@@ -51,54 +51,6 @@ impl PK5 {
         result
     }
 
-    pub fn empty() -> Self {
-        Self {
-            id: 0,
-            species: String::from("MissingNo."),
-            item_id: 0,
-            exp: 0,
-            ability: String::from(""),
-            moves: vec![],
-            ivs: Stats {
-                hp: 0,
-                atk: 0,
-                def: 0,
-                spa: 0,
-                spd: 0,
-                spe: 0,
-            },
-            evs: Stats {
-                hp: 0,
-                atk: 0,
-                def: 0,
-                spa: 0,
-                spd: 0,
-                spe: 0,
-            },
-            nature: String::from(""),
-            nickname: String::from("MissingNo."),
-            happiness: 0,
-            gender: Gender::M,
-            level: 0,
-            is_egg: false,
-            item: ItemEntry {
-                num: 0,
-                name: String::from(""),
-                alias: String::from(""),
-                sprite: String::from(""),
-            },
-            pokeball: ItemEntry {
-                num: 0,
-                name: String::from(""),
-                alias: String::from(""),
-                sprite: String::from(""),
-            },
-            ot_id: 0,
-            ot_sid: 0,
-            ot_name: String::from("")
-        }
-    }
-
     pub fn new(
         raw_data: &[u8],
         pokedex_pokemons: &pokedex::Pokemons,
@@ -106,7 +58,7 @@ impl PK5 {
         pokedex_moves: &pokedex::Moves,
         pokedex_natures: &pokedex::Natures,
         pokedex_items: &pokedex::Items,
-    ) -> Option<Self> {
+    ) -> Result<Option<Self>, pokedex::Error> {
         let pid = LittleEndian::read_u32(&raw_data[..0x4]);
         let checksum = LittleEndian::read_u16(&raw_data[0x6..0x8]);
         let shuffle_index = (((pid & 0x3E000) >> 0xD) % 24) as usize;
@@ -158,9 +110,9 @@ impl PK5 {
         // Check if the Pokemon is null
 
         if LittleEndian::read_u16(&final_data[0x8..0x10]) == 0 {
-            Some(Self::empty())
+            Ok(None)
         } else {
-            Some(PK5 {
+            Ok(Some(PK5 {
                 id: LittleEndian::read_u16(&final_data[0x8..0x10]),
                 species: pokedex_pokemons
                     .get(LittleEndian::read_u16(&final_data[0x8..0x10]))?
@@ -213,7 +165,7 @@ impl PK5 {
                 ot_id: LittleEndian::read_u16(&final_data[0xC..0xE]),
                 ot_sid: LittleEndian::read_u16(&final_data[0xE..0x10]),
                 ot_name: Self::populate_nickname(&final_data[0x68..0x78])
-            })
+            }))
         }
     }
 }

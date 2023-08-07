@@ -12,7 +12,7 @@ fn main() {
     
     let save_file = fs::read("Black 1.sav").expect("Could not open save file");
     let gen5_save = saves::gen5::Save::new(save_file.as_slice(), &pokemons, &abilities, &moves, &natures, &items);
-    let pkms = gen5_save.get_party();
+    let pkms = gen5_save.get_party().unwrap();
 
     println!("{}", json!(pkms).to_string());
     
