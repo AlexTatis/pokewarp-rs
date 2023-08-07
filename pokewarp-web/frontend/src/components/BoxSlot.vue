@@ -33,7 +33,7 @@ const isMobileViewport = computed(() => useWindowSize().width.value <= 640)
 
 </script>
 <template>
-    <div class="md:w-32 md:h-32 h-24 w-24 shadow-lg rounded-lg bg-white"
+    <div class="md:w-32 md:h-32 h-24 w-24 shadow-lg rounded-lg bg-white/30"
         :class="{ ' border-red-500 border-dashed border-2': selected, 'no-drag': PROPS.pkm && PROPS.pkm.id == 0 || isMobileViewport }"
         @click="selected = !selected" onclick="if (window.innerWidth <= 640) my_modal_5.showModal()">
         <div v-if="PROPS.pkm && PROPS.pkm.id != 0" class="flex items-center h-full pixelated gap-2">
