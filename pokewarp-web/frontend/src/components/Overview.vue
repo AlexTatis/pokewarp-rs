@@ -14,7 +14,7 @@ Chart.register(Title, Tooltip, Legend, RadialLinearScale, PointElement, LineElem
 </script>
 
 <template>
-    <div v-if="pkm && pkm.id" class="bg-white shadow-md rounded-s-md pb-1">
+    <div v-if="pkm && pkm.id" class="bg-white shadow-md rounded-s-md md:overflow-hidden">
         <div class="bg-slate-700 py-3 px-3 mb-8 text-white flex items-center justify-between sticky top-0 z-50">
             <img :src="`/sprites/sprites/items/${pkm.pokeball.sprite}.png`" class="pixelated w-14">
             <p class="font-bold text-2xl ">{{ pkm.nickname }}</p>
@@ -38,27 +38,35 @@ Chart.register(Title, Tooltip, Legend, RadialLinearScale, PointElement, LineElem
             <a class="tab" :class="{ 'tab-active': activeTab == 'ivs-evs' }" @click="() => activeTab = 'ivs-evs'">IVs /
                 EVs</a>
         </div>
-        <div v-if="activeTab == 'general'" class="grid grid-cols-2 ml-3 w-fit gap-3">
-            <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">Dex Id.</p>
-            <p class="p-1">{{ pkm.id }}</p>
+        <div v-if="activeTab == 'general'" class=" ml-3">
+            <div class="grid grid-cols-2 gap-3 mb-6 w-fit">
+                <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">Dex Id.</p>
+                <p class="p-1">{{ pkm.id }}</p>
 
-            <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">Species</p>
-            <p class="p-1">{{ pkm.species }}</p>
+                <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">Species</p>
+                <p class="p-1">{{ pkm.species }}</p>
 
-            <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">Held Item</p>
-            <p class="p-1">{{ pkm.item_id ? pkm.item.name : "-" }}</p>
+                <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">Held Item</p>
+                <p class="p-1">{{ pkm.item_id ? pkm.item.name : "-" }}</p>
 
-            <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">Gender</p>
-            <p class="p-1">{{ pkm.gender }}</p>
+                <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">Gender</p>
+                <p class="p-1">{{ pkm.gender }}</p>
 
-            <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">OT Name</p>
-            <p class="p-1">{{ pkm.ot_name }}</p>
-
-            <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">OT Id.</p>
-            <p class="p-1">{{ pkm.ot_id }}</p>
-
-            <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">OT Secret Id.</p>
-            <p class="p-1">{{ pkm.ot_sid }}</p>
+            </div>
+            <div class="rounded bg-base-300 overflow-hidden border-black md:w-96 shadow-xl mx-auto w-80">
+                <div class="absolute z-50 text-white w-max">
+                    <p class="p-2 font-bold">ORIGINAL TRAINER CARD</p>
+                    <div class="flex justify-between items-center gap-2 w-80 md:w-96">
+                        <div>
+                            <p class="pl-2 py-1 font-semibold">NAME: {{ pkm.ot_name.toUpperCase() }}</p>
+                            <p class="pl-2 py-1 font-semibold">ID: {{ pkm.ot_id }}</p>
+                            <p class="pl-2 py-1 font-semibold">SECRET ID: {{ pkm.ot_sid }}</p>
+                        </div>
+                        <img src="https://play.pokemonshowdown.com/sprites/trainers/hilbert.png" class="h-36 pixelated">
+                    </div>
+                </div>
+                <img src="/trainer-card.svg" alt="" class="relative">
+            </div>
 
         </div>
         <Radar v-if="activeTab == 'ivs-evs'" :options="{ responsive: true }" :data="{
@@ -106,5 +114,7 @@ Chart.register(Title, Tooltip, Legend, RadialLinearScale, PointElement, LineElem
                 },
             ]
         }" />
+
+
     </div>
 </template>

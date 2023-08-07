@@ -70,7 +70,10 @@ export const PKMS: PK5[] = [
             "num": 11,
             "sprite": "luxury-ball"
         },
-        "species": "Haxorus"
+        "species": "Haxorus",
+        "ot_name": "Hilbert",
+        "ot_id": 61070,
+        "ot_sid": 34421
     },
     {
         "ability": "Super Luck",
@@ -141,7 +144,10 @@ export const PKMS: PK5[] = [
             "num": 4,
             "sprite": "poke-ball"
         },
-        "species": "Unfezant"
+        "species": "Unfezant",
+        "ot_name": "Hilbert",
+        "ot_id": 61070,
+        "ot_sid": 34421
     },
     {
         "ability": "Justified",
@@ -212,7 +218,10 @@ export const PKMS: PK5[] = [
             "num": 4,
             "sprite": "poke-ball"
         },
-        "species": "Terrakion"
+        "species": "Terrakion",
+        "ot_name": "Hilbert",
+        "ot_id": 61070,
+        "ot_sid": 34421
     },
     {
         "ability": "Pressure",
@@ -283,7 +292,10 @@ export const PKMS: PK5[] = [
             "num": 4,
             "sprite": "poke-ball"
         },
-        "species": "Suicune"
+        "species": "Suicune",
+        "ot_name": "Hilbert",
+        "ot_id": 61070,
+        "ot_sid": 34421
     },
     {
         "ability": "Levitate",
@@ -354,7 +366,10 @@ export const PKMS: PK5[] = [
             "num": 1,
             "sprite": "master-ball"
         },
-        "species": "Latios"
+        "species": "Latios",
+        "ot_name": "Hilbert",
+        "ot_id": 61070,
+        "ot_sid": 34421
     },
     {
         "ability": "",
@@ -396,6 +411,9 @@ export const PKMS: PK5[] = [
             "num": 0,
             "sprite": ""
         },
-        "species": "MissingNo."
+        "species": "MissingNo.",
+        "ot_name": "Hilbert",
+        "ot_id": 61070,
+        "ot_sid": 34421
     }
 ]

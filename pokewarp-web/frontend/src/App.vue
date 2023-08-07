@@ -27,15 +27,31 @@ import { PKMS } from './data';
     <div class="basis-1/4">
       <Overview class="h-full hidden md:block" />
     </div>
+
+    <!--SMALL VIEWPORT VERSIONS-->
+
     <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle md:hidden">
       <form method="dialog" class="modal-box p-0">
         <Overview />
       </form>
       <form method="dialog" class="modal-backdrop">
-        <button
-          class="btn btn-sm btn-circle btn-ghost absolute text-white bg-primary mb-10 top-0 bottom-0 mt-14 left-1/2 transform -translate-x-1/2 -translate-y-1/2">✕</button>
+        <button>close</button>
       </form>
     </dialog>
+
+    <div class="drawer md:hidden">
+      <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content">
+        <label for="my-drawer" class="btn btn-primary drawer-button relative left-1/2 -translate-x-1/2 my-5">Open
+          party</label>
+      </div>
+      <div class="drawer-side">
+        <label for="my-drawer" class="drawer-overlay"></label>
+        <div class="h-full flex items-center pl-1">
+          <Party />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
