@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Box from './components/Box.vue'
+import Boxes from './components/Boxes.vue'
 import Party from './components/Party.vue'
 import Overview from './components/Overview.vue'
 import UploadButton from './components/UploadButton.vue'
 import Avatar from './components/Avatar.vue'
 import SearchButton from './components/SearchButton.vue'
-import { PKMS } from './data';
+
 
 </script>
 
@@ -20,12 +20,7 @@ import { PKMS } from './data';
       <Party />
     </div>
     <div class="basis-2/4 flex flex-col gap-8 items-center">
-      <div class="rounded-full shadow w-52 bg-white p-2 flex items-center justify-between h-16">
-        <div class="bg-[#303030] w-4 h-4 mask mask-triangle-3 btn btn-ghost btn-square" />
-        <h2 class="font-black text-4xl text-center">Box 1</h2>
-        <div class="bg-[#303030] w-4 h-4 mask mask-triangle-4 btn btn-ghost btn-square" />
-      </div>
-      <Box :boxes="PKMS" />
+      <Boxes />
       <div class="sticky bottom-2 flex items-center gap-3">
         <Avatar />
         <UploadButton />

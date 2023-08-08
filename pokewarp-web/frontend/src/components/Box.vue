@@ -7,10 +7,13 @@ import { isLoggedIn } from '../data';
 import { LockClosedIcon } from '@heroicons/vue/24/solid'
 
 
-
 const PROPS = defineProps<{
     boxes: PK5[]
 }>();
+
+const emit = defineEmits<{
+    (event: "update:boxes", box: PK5[]): PK5[]
+}>()
 
 let boxes = ref(Array.from(PROPS.boxes)) // Is this fine?
 const BOXES_LENGTH = boxes.value.length;
@@ -29,12 +32,19 @@ function onMove(e: any) {
 
     return false;   // We always return false so we keep the swapping behaviour even inside the Box
 
+
 }
+
+console.log(draggable)
 
 function onEnd() {
 
     relatedContext.value.component.alterList((list: PK5[]) => { list[relatedContext.value.index] = draggedContext.value.element })
     boxes.value[draggedContext.value.index] = relatedContext.value.element
+
+    emit("update:boxes", boxes.value)
+
+
 
 }
 
