@@ -4,14 +4,15 @@ import Party from './components/Party.vue'
 import Overview from './components/Overview.vue'
 import UploadButton from './components/UploadButton.vue'
 import Avatar from './components/Avatar.vue'
+import SearchButton from './components/SearchButton.vue'
 import { PKMS } from './data';
 
 </script>
 
 <template>
   <div class="hidden md:block">
-    <div class="h-screen w-80 bg-[#9ad402] absolute -left-32 -skew-x-12" />
-    <div class="h-screen w-64 bg-[#b3ec2f] absolute -left-24 -skew-x-12" />
+    <div class="h-screen w-80 bg-gray-800 absolute -left-32 -skew-x-12" />
+    <div class="h-screen w-64 bg-red-500 absolute -left-28 -skew-x-12" />
   </div>
   <div class="md:flex pt-2 z-10 relative">
     <div class="left-0 basis-1/4 md:flex flex-col gap-6 items-center hidden">
@@ -28,6 +29,7 @@ import { PKMS } from './data';
       <div class="sticky bottom-2 flex items-center gap-3">
         <Avatar />
         <UploadButton />
+        <SearchButton />
         <!-- <label for="my-drawer" class="btn bg-white shadow-md btn-ghost h-16 rounded-full drawer-button md:hidden">Open party</label> -->
       </div>
     </div>
