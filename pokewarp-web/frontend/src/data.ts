@@ -1,4 +1,13 @@
+import { Surreal } from "surrealdb.js"
 import { PK5 } from "./utils"
+import { ref } from "vue"
+
+export const db = new Surreal('http://127.0.0.1:8000/rpc', {
+        ns: "dev",
+        db: "pokewarp",
+})
+
+export const isLoggedIn = ref(false)
 
 export const PKMS: PK5[] = [
     {

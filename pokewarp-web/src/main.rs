@@ -9,6 +9,7 @@ use surrealdb::{Surreal, engine::remote::ws::{Ws, Client}, opt::auth::Root};
 use std::{net::SocketAddr, sync::Arc};
 
 pub mod handlers;
+pub mod middleware;
 
 pub struct AppState {
     pub db: Arc<Surreal<Client>>

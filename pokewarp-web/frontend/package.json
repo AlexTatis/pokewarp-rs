@@ -11,8 +11,11 @@
   "dependencies": {
     "@heroicons/vue": "^2.0.18",
     "@vueuse/core": "^10.2.1",
+    "@vueuse/integrations": "^10.3.0",
     "chart.js": "^4.3.0",
     "mitt": "^3.0.1",
+    "surrealdb.js": "^0.8.3",
+    "universal-cookie": "^4.0.4",
     "vue": "^3.3.4",
     "vue-chartjs": "^5.2.0",
     "vuedraggable": "^4.1.0"
