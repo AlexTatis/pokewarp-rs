@@ -1,4 +1,5 @@
 import mitt from "mitt"
+import { ref } from "vue"
 
 export interface PK5 {
     id: number,
@@ -92,10 +93,26 @@ export const EMPTY_PK5: PK5 = {
     ot_name: ""
 }
 
+export type BoxChange = {
+    box: number,
+    slot: number,
+    pkm: PK5
+}
+
 export type Events = {
     setOverview: PK5,
     newSlotSelected: undefined,
-    saveParsed: PK5[]
+    saveParsed: PK5[],
+    boxChange: BoxChange
 }
 
 export const emitter = mitt<Events>()
+
+export const party = ref(Array.from([EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5]))
+
+export const maxBoxes = 12
+export const boxes = ref(
+    Array(maxBoxes).fill(undefined).map(() => Array(30).fill(EMPTY_PK5))
+)
+
+export const currentBox = ref(0)

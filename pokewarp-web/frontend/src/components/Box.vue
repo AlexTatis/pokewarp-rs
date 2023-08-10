@@ -2,13 +2,14 @@
 import { ref } from 'vue';
 import BoxSlot from './BoxSlot.vue'
 import draggable from 'vuedraggable'
-import { EMPTY_PK5, PK5 } from '../utils'
+import { EMPTY_PK5, PK5, emitter } from '../utils'
 import { isLoggedIn } from '../data';
 import { LockClosedIcon } from '@heroicons/vue/24/solid'
 
 
 const PROPS = defineProps<{
-    boxes: PK5[]
+    boxes: PK5[],
+    index: number
 }>();
 
 const emit = defineEmits<{
@@ -47,6 +48,13 @@ function onEnd() {
 
 
 }
+
+
+emitter.on("boxChange", boxChange => {
+    if (boxChange.box != PROPS.index) return;
+
+    boxes.value[boxChange.slot] = boxChange.pkm
+})
 
 </script>
 
