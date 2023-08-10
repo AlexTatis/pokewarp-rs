@@ -107,12 +107,4 @@ export type Events = {
 }
 
 export const emitter = mitt<Events>()
-
-export const party = ref(Array.from([EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5]))
-
-export const maxBoxes = 12
-export const boxes = ref(
-    Array(maxBoxes).fill(undefined).map(() => Array(30).fill(EMPTY_PK5))
-)
-
 export const currentBox = ref(0)

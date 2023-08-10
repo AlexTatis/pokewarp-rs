@@ -2,7 +2,9 @@
 import { ref } from 'vue';
 import PartySlot from './PartySlot.vue'
 import draggable from 'vuedraggable'
-import { boxes, currentBox, emitter, party } from '../utils'
+import { EMPTY_PK5, currentBox, emitter } from '../utils'
+
+const party = ref(Array.from([EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5]))
 
 const draggedContext = ref();
 const relatedContext = ref();
@@ -22,9 +24,6 @@ function onMove(e: any) {
 function onEnd(e: any) {
 
     if(receiverId.value == "party") return true;
-
-    //relatedContext.value.component.alterList((list: PK5[]) => { list[relatedContext.value.index] = draggedContext.value.element  })
-    boxes.value[currentBox.value][relatedContext.value.index] = draggedContext.value.element
 
     emitter.emit("boxChange", {
         box: currentBox.value,

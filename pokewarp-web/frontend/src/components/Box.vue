@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import BoxSlot from './BoxSlot.vue'
 import draggable from 'vuedraggable'
-import { EMPTY_PK5, PK5, emitter } from '../utils'
+import { EMPTY_PK5, PK5 } from '../utils'
 import { isLoggedIn } from '../data';
 import { LockClosedIcon } from '@heroicons/vue/24/solid'
 
@@ -22,6 +22,10 @@ const draggedContext = ref();
 const relatedContext = ref();
 const receiverId = ref("");
 
+watch(PROPS, watched => {
+    boxes.value = Array.from(watched.boxes)
+})
+
 for (let i = 0; i < 30 - BOXES_LENGTH; i++) {
     boxes.value.push(EMPTY_PK5)
 }
@@ -36,8 +40,6 @@ function onMove(e: any) {
 
 }
 
-console.log(draggable)
-
 function onEnd() {
 
     relatedContext.value.component.alterList((list: PK5[]) => { list[relatedContext.value.index] = draggedContext.value.element })
@@ -45,16 +47,7 @@ function onEnd() {
 
     emit("update:boxes", boxes.value)
 
-
-
 }
-
-
-emitter.on("boxChange", boxChange => {
-    if (boxChange.box != PROPS.index) return;
-
-    boxes.value[boxChange.slot] = boxChange.pkm
-})
 
 </script>
 

@@ -1,7 +1,15 @@
 <script setup lang="ts">
-    import BoxSelector from './BoxSelector.vue'
-    import Box from './Box.vue'
-    import { maxBoxes, boxes, currentBox } from '../utils';
+import BoxSelector from './BoxSelector.vue'
+import Box from './Box.vue'
+import { currentBox, emitter, EMPTY_PK5 } from '../utils';
+import { ref } from 'vue';
+
+const maxBoxes = 12
+const boxes = ref(Array(maxBoxes).fill(undefined).map(() => Array(30).fill(EMPTY_PK5)))
+
+emitter.on("boxChange", boxChange => {
+    boxes.value[boxChange.box][boxChange.slot] = boxChange.pkm
+})
 
 </script>
 
