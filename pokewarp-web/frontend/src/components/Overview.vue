@@ -21,12 +21,12 @@ Chart.register(Title, Tooltip, Legend, RadialLinearScale, PointElement, LineElem
             <p class="text-xl">Lvl. {{ pkm.level }}</p>
         </div>
         <div class="flex h-48 mb-10 px-3 md:px-0">
-            <div class="ml-3 pr-3">
+            <div class="ml-3 pr-3 basis-1/2">
                 <img :src="`https://projectpokemon.org/images/normal-sprite/${pkm.species.toLowerCase()}.gif`" alt=""
-                    class="pixelated w-48">
+                    class="pixelated h-full m-auto object-contain">
             </div>
             <div>
-                <div v-for="move in pkm.moves" class="-skew-x-12 bg-slate-700">
+                <div v-for="move in pkm.moves" class="-skew-x-12 bg-slate-700 basis-1/2">
                     <p class="text-white px-3 mb-2 py-1 font-semibold skew-x-12 flex items-center gap-2"><img
                             :src="`/type-icons/${move.type.toLowerCase()}.png`" class="w-8"> {{ move.name }}</p>
                 </div>

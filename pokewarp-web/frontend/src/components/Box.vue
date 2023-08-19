@@ -44,9 +44,11 @@ function onMove(e: any) {
 
 async function onEnd() {
 
+    let pkm;
+
     if(receiverId.value == "party") {
 
-        let pkm = await db.query<string[]>(
+        pkm = await db.query<string[]>(
             "DELETE pkm WHERE <-boxed.slot = [$slot] AND <-boxed.box = [$box]",
             {
                 slot: draggedContext.value.index,
@@ -54,13 +56,11 @@ async function onEnd() {
             }
         )
 
-        if (pkm[0].status == "ERR") { alert("There was an error moving back the pokemon from the server"); return; }
-
     }
 
     if (receiverId.value == "box") {
         
-        let pkm = await db.query<string[]>(
+        pkm = await db.query<string[]>(
             "UPDATE boxed SET slot = $new_slot WHERE slot = $slot AND box = $box",
             {
                 slot: draggedContext.value.index,
@@ -69,9 +69,10 @@ async function onEnd() {
             }
         )
 
-        if (pkm[0].status == "ERR") { alert("There was an error moving back the pokemon from the server"); return; }
     }
-
+    
+    if (pkm && pkm[0].status == "ERR") { alert("There was an error moving back the pokemon from the server"); return; }
+    
     relatedContext.value.component.alterList((list: PK5[]) => { list[relatedContext.value.index] = draggedContext.value.element })
     boxes.value[draggedContext.value.index] = relatedContext.value.element
 
