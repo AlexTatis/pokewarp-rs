@@ -23,7 +23,7 @@ export const PKMS: PK5[] = [
         "exp": 708382,
         "gender": "M",
         "happiness": 255,
-        "id": 612,
+        "pkm_id": 612,
         "is_egg": false,
         "item": {
             "alias": "berserkgene",
@@ -97,7 +97,7 @@ export const PKMS: PK5[] = [
         "exp": 559089,
         "gender": "F",
         "happiness": 255,
-        "id": 521,
+        "pkm_id": 521,
         "is_egg": false,
         "item": {
             "alias": "berserkgene",
@@ -171,7 +171,7 @@ export const PKMS: PK5[] = [
         "exp": 1250000,
         "gender": "Genderless",
         "happiness": 6,
-        "id": 639,
+        "pkm_id": 639,
         "is_egg": false,
         "item": {
             "alias": "widelens",
@@ -245,7 +245,7 @@ export const PKMS: PK5[] = [
         "exp": 1250000,
         "gender": "Genderless",
         "happiness": 2,
-        "id": 245,
+        "pkm_id": 245,
         "is_egg": false,
         "item": {
             "alias": "leftovers",
@@ -319,7 +319,7 @@ export const PKMS: PK5[] = [
         "exp": 1250000,
         "gender": "M",
         "happiness": 4,
-        "id": 381,
+        "pkm_id": 381,
         "is_egg": false,
         "item": {
             "alias": "lifeorb",
@@ -393,7 +393,7 @@ export const PKMS: PK5[] = [
         "exp": 0,
         "gender": "M",
         "happiness": 0,
-        "id": 0,
+        "pkm_id": 0,
         "is_egg": false,
         "item": {
             "alias": "",

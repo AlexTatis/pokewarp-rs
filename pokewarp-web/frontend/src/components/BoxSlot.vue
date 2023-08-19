@@ -38,7 +38,7 @@ const isMobileViewport = computed(() => useWindowSize().width.value <= 640)
     <div class="md:w-32 md:h-32 h-24 w-24 shadow-lg rounded-lg bg-white/30"
         :class="{ ' border-red-500 border-dashed border-2': selected, 'no-drag': PROPS.pkm && PROPS.pkm.id == 0 || isMobileViewport }"
         @click="selected = !selected && isLoggedIn" onclick="if (window.innerWidth <= 640) my_modal_5.showModal()">
-        <div v-if="PROPS.pkm && PROPS.pkm.id != 0" class="flex items-center h-full pixelated gap-2">
+        <div v-if="PROPS.pkm && PROPS.pkm.pkm_id != 0" class="flex items-center h-full pixelated gap-2">
             <img :src="`/pokesprite/pokemon-gen8/regular/${PROPS.pkm.species.toLowerCase()}.png`" class="w-32"
                 :class="{ 'animate-bounce': selected }">
         </div>

@@ -1,8 +1,8 @@
 import mitt from "mitt"
 import { ref } from "vue"
 
-export interface PK5 {
-    id: number,
+export type PK5 = {
+    pkm_id: number,
     species: String,
     item_id: number,
     exp: number,
@@ -48,7 +48,7 @@ interface Item {
 }
 
 export const EMPTY_PK5: PK5 = {
-    id: 0,
+    pkm_id: 0,
     species: "MissingNo.",
     item_id: 0,
     exp: 0,
@@ -91,6 +91,13 @@ export const EMPTY_PK5: PK5 = {
     ot_id: 0,
     ot_sid: 0,
     ot_name: ""
+}
+
+export type Boxed = {
+    box: number,
+    slot: number,
+    in: string,
+    out: string
 }
 
 export type BoxChange = {

@@ -42,8 +42,8 @@ async function signup() {
         DB: "pokewarp",
         SC: "allusers",
 
-        name: "Tatis",
-        pass: "tatis2007"
+        name: username.value,
+        pass: password.value
     })
 }
 </script>

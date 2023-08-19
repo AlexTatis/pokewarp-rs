@@ -8,7 +8,7 @@ use serde::Serialize;
 
 #[derive(Debug, Serialize)]
 pub struct PK5 {
-    pub id: u16,
+    pub pkm_id: u16,
     pub species: String,
     pub item_id: u16,
     pub exp: u32,
@@ -113,7 +113,7 @@ impl PK5 {
             Ok(None)
         } else {
             Ok(Some(PK5 {
-                id: LittleEndian::read_u16(&final_data[0x8..0x10]),
+                pkm_id: LittleEndian::read_u16(&final_data[0x8..0x10]),
                 species: pokedex_pokemons
                     .get(LittleEndian::read_u16(&final_data[0x8..0x10]))?
                     .name,

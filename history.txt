@@ -10,3 +10,12 @@ SELECT * FROM person WHERE name = 'Tatis' LIMIT 1;
 SELECT * FROM person WHERE name = 'Tatis';
 SELECT * FROM person WHERE name='Tatis';
 SELECT * FROM user
+SELECT * FROM pkm
+REMOVE pkm
+DELETE pkm
+SELECT pkm
+SELECT * FROM pkm
+SELECT pkm
+SELECT * FROM pkm
+SELECT * from user
+select * from boxed
