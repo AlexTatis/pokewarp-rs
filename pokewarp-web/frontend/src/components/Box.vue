@@ -58,6 +58,20 @@ async function onEnd() {
 
     }
 
+    if (receiverId.value = "box") {
+        
+        let pkm = await db.query<string[]>(
+            "UPDATE boxed SET slot = $new_slot WHERE slot = $slot AND box = $box",
+            {
+                slot: draggedContext.value.index,
+                box: currentBox.value,
+                new_slot: relatedContext.value.index
+            }
+        )
+
+        if (pkm[0].status == "ERR") { alert("There was an error moving back the pokemon from the server"); return; }
+    }
+
     relatedContext.value.component.alterList((list: PK5[]) => { list[relatedContext.value.index] = draggedContext.value.element })
     boxes.value[draggedContext.value.index] = relatedContext.value.element
 

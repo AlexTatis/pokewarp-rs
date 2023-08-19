@@ -1,16 +1,4 @@
 #V2
-SELECT * FROM pkm
-SELECT pkm
-SELECT * FROM pkm
-SELECT * from user
-select * from boxed
-delete boxed
-select * from boxed
-delete pkm
-select * from pkm
-select * from boxed
-select * from pkm
-select * from boxed
 select * from user
 select * from pkm
 select * from boxed
@@ -98,4 +86,16 @@ select * from user
 select * from pkm
 select * from boxed
 select * from boxed fetch out
+select * from boxed
+UPDATE pkm SET <-boxed.slot = 12 WHERE box = 0 AND slot = 0
+UPDATE pkm SET <-boxed.slot = 12 WHERE <-boxed.box = 0 AND <-boxed.slot = 0
+select * from boxed
+select * from boxed WHERE box = 0 and slot = 0
+UPDATE pkm SET <-boxed.slot = 12 WHERE <-boxed.box = [0] AND <-boxed.slot = [0]
+select * from boxed WHERE box = 0 and slot = 12
+UPDATE pkm SET <-boxed.slot = 12 WHERE <-boxed.box = [0] AND <-boxed.slot = [0]
+UPDATE pkm SET <-boxed.slot = 12 WHERE <-boxed.box = [0] AND <-boxed.slot = 0
+UPDATE pkm SET <-boxed.slot = 12 WHERE <-boxed.box = [0] AND <-boxed.slot = [0]
+select * from boxed
+UPDATE boxed SET slot = 12 WHERE box = 0 AND slot = 0
 select * from boxed
