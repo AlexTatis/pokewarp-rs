@@ -1,51 +1,14 @@
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
-import { db, isLoggedIn } from '../data';
-import { useCookies } from '@vueuse/integrations/useCookies'
 import { UserIcon } from '@heroicons/vue/24/solid'
-
+import { useSession } from '../composables/useSession';
 
 const username: Ref<string> = ref("")
 const password: Ref<string> = ref("")
 const isLogin = ref(true)
-const cookies = useCookies(['jwt'])
 
+const { isLoggedIn, login, signup } = useSession()
 
-// We set the global ref depending on the jwt
-
-
-isLoggedIn.value = !!cookies.get('jwt')
-
-async function login() {
-    let jwt = await db.signin({
-        NS: "dev",
-        DB: "pokewarp",
-        SC: "allusers",
-
-        name: username.value,
-        pass: password.value
-    }).catch(err => {
-        alert(err)
-    })
-
-    cookies.set('jwt', jwt, {
-        maxAge: 60 * 60 * 24 * 14
-    })
-
-    isLoggedIn.value = !!cookies.get('jwt')
-
-}
-
-async function signup() {
-    db.signup({
-        NS: "dev",
-        DB: "pokewarp",
-        SC: "allusers",
-
-        name: username.value,
-        pass: password.value
-    })
-}
 </script>
 
 <template>
@@ -69,7 +32,7 @@ async function signup() {
                     <p class="font-semibold">Password</p>
                     <input type="password" name="password" id="" class="input input-bordered" v-model="password">
                     <button class="underline" type="button" @click="isLogin = !isLogin">No account yet?</button>
-                    <button type="button" value="Login" class="btn" @click="login">Login</button>
+                    <button type="button" value="Login" class="btn" @click="login(username, password)">Login</button>
                 </form>
                 <form action="" class="flex justify-center flex-col gap-3" v-else>
                     <p class="font-semibold">Name</p>
@@ -77,7 +40,7 @@ async function signup() {
                     <p class="font-semibold">Password</p>
                     <input type="password" name="password" id="" class="input input-bordered" v-model="password">
                     <button class="underline" type="button" @click="isLogin = !isLogin">Already have an account?</button>
-                    <button type="button" value="Login" class="btn" @click="signup">Signup</button>
+                    <button type="button" value="Login" class="btn" @click="signup(username, password)">Signup</button>
                 </form>
             </div>
         </div>

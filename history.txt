@@ -1,19 +1,4 @@
 #V2
-LIST
-HELP
-SELECT * FROM user
-DELETE * from user
-DELETE user
-SELECT * FROM user
-SELECT * FROM person WHERE name = "Tatis" LIMIT 1;
-SELECT * FROM person WHERE name = 'Tatis' LIMIT 1;
-SELECT * FROM person WHERE name = 'Tatis';
-SELECT * FROM person WHERE name='Tatis';
-SELECT * FROM user
-SELECT * FROM pkm
-REMOVE pkm
-DELETE pkm
-SELECT pkm
 SELECT * FROM pkm
 SELECT pkm
 SELECT * FROM pkm
@@ -99,3 +84,18 @@ delete boxed
 select * from pkm
 select * from boxed
 select * from pkm
+delete pkm
+delete boxed
+select * from pkm
+select * from boxed
+select * from boxed FETCH pkm
+select * from boxed FETCH out
+select * from boxed FETCH out as pkm
+select * from boxed FETCH out
+select * from pkm where <-boxed.id
+select <-boxed.in from pkm
+select * from user
+select * from pkm
+select * from boxed
+select * from boxed fetch out
+select * from boxed

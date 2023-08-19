@@ -1,7 +1,7 @@
 ---define SCHEMAFULL and PERMISSIONS
 DEFINE TABLE pkm SCHEMAFULL
   PERMISSIONS
-    FOR select, update WHERE $auth.admin = true;
+    FOR select, update WHERE <-boxed.in = [$auth.id];
 --- define FIELD's
 DEFINE FIELD pkm_id ON TABLE pkm TYPE number;
 DEFINE FIELD species ON TABLE pkm TYPE string;

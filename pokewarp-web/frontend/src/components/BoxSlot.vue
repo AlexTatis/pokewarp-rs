@@ -2,9 +2,9 @@
 import { computed, ref, watch } from 'vue';
 import { PK5, emitter } from '../utils'
 import { useWindowSize } from '@vueuse/core'
-import { isLoggedIn } from '../data';
+import { useSession } from '../composables/useSession';
 
-
+const { isLoggedIn } = useSession()
 const PROPS = defineProps<{
     pkm?: PK5
 }>();

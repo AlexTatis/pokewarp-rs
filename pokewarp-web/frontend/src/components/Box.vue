@@ -3,11 +3,11 @@ import { ref, watch } from 'vue';
 import BoxSlot from './BoxSlot.vue'
 import draggable from 'vuedraggable'
 import { EMPTY_PK5, PK5, currentBox } from '../utils'
-import { db, isLoggedIn } from '../data';
+import { db } from '../data';
+import { useSession } from '../composables/useSession'
 import { LockClosedIcon } from '@heroicons/vue/24/solid'
-import { useCookies } from '@vueuse/integrations/useCookies.mjs';
 
-const cookies = useCookies(['jwt'])
+const { isLoggedIn } = useSession()
 
 const PROPS = defineProps<{
     boxes: PK5[],
@@ -46,7 +46,6 @@ async function onEnd() {
 
     if(receiverId.value == "party") {
 
-        db.authenticate(cookies.get('jwt'))
         let pkm = await db.query<string[]>(
             "DELETE pkm WHERE <-boxed.slot = [$slot] AND <-boxed.box = [$box]",
             {

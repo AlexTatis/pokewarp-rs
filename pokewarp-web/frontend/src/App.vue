@@ -5,7 +5,10 @@ import Overview from './components/Overview.vue'
 import UploadButton from './components/UploadButton.vue'
 import Avatar from './components/Avatar.vue'
 import SearchButton from './components/SearchButton.vue'
+import { useSession } from './composables/useSession'
 
+// We call useSession so that we authorize the DB connection
+useSession()
 
 </script>
 
@@ -20,7 +23,12 @@ import SearchButton from './components/SearchButton.vue'
       <Party />
     </div>
     <div class="basis-2/4 flex flex-col gap-8 items-center">
-      <Boxes />
+      <Suspense>
+        <Boxes />
+        <template #fallback>
+          <p class="mt-72">Loading...</p>
+        </template>
+      </Suspense>
       <div class="sticky bottom-2 flex items-center gap-3">
         <Avatar />
         <UploadButton />
