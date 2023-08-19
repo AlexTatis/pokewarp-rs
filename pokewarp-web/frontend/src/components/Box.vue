@@ -58,7 +58,7 @@ async function onEnd() {
 
     }
 
-    if (receiverId.value = "box") {
+    if (receiverId.value == "box") {
         
         let pkm = await db.query<string[]>(
             "UPDATE boxed SET slot = $new_slot WHERE slot = $slot AND box = $box",
