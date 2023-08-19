@@ -2,10 +2,12 @@
 import { ref, watch } from 'vue';
 import BoxSlot from './BoxSlot.vue'
 import draggable from 'vuedraggable'
-import { EMPTY_PK5, PK5 } from '../utils'
-import { isLoggedIn } from '../data';
+import { EMPTY_PK5, PK5, currentBox } from '../utils'
+import { db, isLoggedIn } from '../data';
 import { LockClosedIcon } from '@heroicons/vue/24/solid'
+import { useCookies } from '@vueuse/integrations/useCookies.mjs';
 
+const cookies = useCookies(['jwt'])
 
 const PROPS = defineProps<{
     boxes: PK5[],
@@ -40,7 +42,22 @@ function onMove(e: any) {
 
 }
 
-function onEnd() {
+async function onEnd() {
+
+    if(receiverId.value == "party") {
+
+        db.authenticate(cookies.get('jwt'))
+        let pkm = await db.query<string[]>(
+            "DELETE pkm WHERE <-boxed.slot = [$slot] AND <-boxed.box = [$box]",
+            {
+                slot: draggedContext.value.index,
+                box: currentBox.value
+            }
+        )
+
+        if (pkm[0].status == "ERR") { alert("There was an error moving back the pokemon from the server"); return; }
+
+    }
 
     relatedContext.value.component.alterList((list: PK5[]) => { list[relatedContext.value.index] = draggedContext.value.element })
     boxes.value[draggedContext.value.index] = relatedContext.value.element
