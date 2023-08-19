@@ -2,9 +2,10 @@
 import { ref } from 'vue';
 import PartySlot from './PartySlot.vue'
 import draggable from 'vuedraggable'
-import { PK5, emitter, EMPTY_PK5 } from '../utils'
+import { EMPTY_PK5, currentBox, emitter } from '../utils'
 
-let party = ref(Array.from([ EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5 ]))
+const party = ref(Array.from([EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5, EMPTY_PK5]))
+
 const draggedContext = ref();
 const relatedContext = ref();
 const receiverId = ref("");
@@ -24,7 +25,12 @@ function onEnd(e: any) {
 
     if(receiverId.value == "party") return true;
 
-    relatedContext.value.component.alterList((list: PK5[]) => { list[relatedContext.value.index] = draggedContext.value.element  })
+    emitter.emit("boxChange", {
+        box: currentBox.value,
+        slot: relatedContext.value.index,
+        pkm: draggedContext.value.element
+    })
+
     // We use e.newIndex in case the user drags through the other Slots and the index needs to be updated
     party.value[e.newIndex] = relatedContext.value.element  
 
@@ -35,7 +41,7 @@ emitter.on("saveParsed", parsedParty => party.value = parsedParty)
 </script>
 
 <template>
-    <draggable id="party" v-model="party" class="flex flex-col gap-3" :animation="300" group="pkm" :move="onMove" @end="onEnd">
+    <draggable id="party" v-model="party" class="flex flex-col gap-3" :animation="300" group="pkm" :move="onMove" @end="onEnd" item-key="id">
         <template #item="{ element: pkm }">
             <PartySlot :pkm="pkm" />
         </template>

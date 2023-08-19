@@ -1,7 +1,8 @@
 import mitt from "mitt"
+import { ref } from "vue"
 
-export interface PK5 {
-    id: number,
+export type PK5 = {
+    pkm_id: number,
     species: String,
     item_id: number,
     exp: number,
@@ -47,7 +48,7 @@ interface Item {
 }
 
 export const EMPTY_PK5: PK5 = {
-    id: 0,
+    pkm_id: 0,
     species: "MissingNo.",
     item_id: 0,
     exp: 0,
@@ -92,10 +93,25 @@ export const EMPTY_PK5: PK5 = {
     ot_name: ""
 }
 
+export type Boxed = {
+    box: number,
+    slot: number,
+    in: string,
+    out: string
+}
+
+export type BoxChange = {
+    box: number,
+    slot: number,
+    pkm: PK5
+}
+
 export type Events = {
     setOverview: PK5,
     newSlotSelected: undefined,
-    saveParsed: PK5[]
+    saveParsed: PK5[],
+    boxChange: BoxChange
 }
 
 export const emitter = mitt<Events>()
+export const currentBox = ref(0)

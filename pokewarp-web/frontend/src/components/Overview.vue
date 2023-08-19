@@ -14,19 +14,19 @@ Chart.register(Title, Tooltip, Legend, RadialLinearScale, PointElement, LineElem
 </script>
 
 <template>
-    <div v-if="pkm && pkm.id" class="bg-white shadow-md rounded-s-md md:overflow-hidden">
+    <div v-if="pkm && pkm.pkm_id" class="bg-white shadow-md rounded-s-md md:overflow-hidden">
         <div class="bg-slate-700 py-3 px-3 mb-8 text-white flex items-center justify-between sticky top-0 z-50">
             <img :src="`/sprites/sprites/items/${pkm.pokeball.sprite}.png`" class="pixelated w-14">
             <p class="font-bold text-2xl ">{{ pkm.nickname }}</p>
             <p class="text-xl">Lvl. {{ pkm.level }}</p>
         </div>
         <div class="flex h-48 mb-10 px-3 md:px-0">
-            <div class="ml-3 pr-3">
+            <div class="ml-3 pr-3 basis-1/2">
                 <img :src="`https://projectpokemon.org/images/normal-sprite/${pkm.species.toLowerCase()}.gif`" alt=""
-                    class="pixelated w-48">
+                    class="pixelated h-full m-auto object-contain">
             </div>
             <div>
-                <div v-for="move in pkm.moves" class="-skew-x-12 bg-slate-700">
+                <div v-for="move in pkm.moves" class="-skew-x-12 bg-slate-700 basis-1/2">
                     <p class="text-white px-3 mb-2 py-1 font-semibold skew-x-12 flex items-center gap-2"><img
                             :src="`/type-icons/${move.type.toLowerCase()}.png`" class="w-8"> {{ move.name }}</p>
                 </div>
@@ -41,7 +41,7 @@ Chart.register(Title, Tooltip, Legend, RadialLinearScale, PointElement, LineElem
         <div v-if="activeTab == 'general'" class=" ml-3">
             <div class="grid grid-cols-2 gap-3 mb-6 w-fit">
                 <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">Dex Id.</p>
-                <p class="p-1">{{ pkm.id }}</p>
+                <p class="p-1">{{ pkm.pkm_id }}</p>
 
                 <p class="text-white bg-slate-700 font-semibold py-1 px-4 text-center">Species</p>
                 <p class="p-1">{{ pkm.species }}</p>

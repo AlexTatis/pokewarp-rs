@@ -1,12 +1,101 @@
 #V2
-LIST
-HELP
-SELECT * FROM user
-DELETE * from user
-DELETE user
-SELECT * FROM user
-SELECT * FROM person WHERE name = "Tatis" LIMIT 1;
-SELECT * FROM person WHERE name = 'Tatis' LIMIT 1;
-SELECT * FROM person WHERE name = 'Tatis';
-SELECT * FROM person WHERE name='Tatis';
-SELECT * FROM user
+select * from user
+select * from pkm
+select * from boxed
+select * from boxed where slot = 0 and box = 0
+select * from boxed where slot = 0 and box = 1
+delete pkm
+delete boxed
+delete pkm
+delete boxed
+select * from pkm
+select * from boxed where slot = 0 and box = 1
+select * from boxed where slot = 0 and box = 0
+select in from boxed where slot = 0 and box = 0
+select out from boxed where slot = 0 and box = 0
+delete (select out from boxed where slot = 0 and box = 0)
+delete (select out from boxed where slot = 0 and box = 0).out
+delete (select out from boxed where slot = 0 and box = 0)
+select out from boxed where slot = 0 and box = 0
+delete pkm where id=(select out from boxed where slot = 0 and box = 0)
+select pkm
+select * from pkm
+delete pkm where id = (select out from boxed where slot = 0 and box = 0).out
+select * from pkm
+delete pkm
+delete boxe
+delete boxed
+select * from pkm
+select out from boxed where slot = 0 and box = 0
+(select out from boxed where slot = 0 and box = 0).out
+select out from boxed
+select out.id from boxed
+(select out.id from boxed)
+let data = select out.id from boxed
+LET &data = select out from boxed
+LET $data = select out from boxed
+select * from $data
+select * from pkm where id = $data
+select * from pkm where id = $data.out
+select * from pkm where id = $data.value
+select * from pkm where id = $data.id
+select * from pkm where id = $data.out.id
+select * from pkm 
+select ->boxed from pkm
+select boxed-> from pkm
+select boxed<- from pkm
+select <-boxed from pkm
+select * from boxed
+select * from boxed where box = 0 and slot = 0
+select out from boxed where box = 0 and slot = 0
+select out.pkm_id from boxed where box = 0 and slot = 0
+delete out from boxed where box = 0 and slot = 0
+select * from pkm where boxed.box = 0
+select out as data from boxed where box = 0 and slot = 0
+select * from pkm
+select * from pkm where <-boxed.box = 0
+select * from pkm where <-boxed.box = 1
+select * from pkm where <-boxed
+select * from pkm where <-boxed.slot
+select * from pkm where <-boxed.slot = 0
+select <-boxed.slot from pkm
+select * from pkm where <-boxed.slot = [0]
+select * from pkm where <-boxed.slot = 0
+select * from pkm where <-boxed.slot = [0]
+select * from pkm where <-boxed.slot = [1]
+select <-boxed.slot from pkm
+select * from pkm where <-boxed.slot = [0]
+delete pkm where <-boxed.slot = [0]
+select * from pkm where <-boxed.slot = [0]
+delete pkm
+delete boxed
+select * from pkm
+select * from boxed
+select * from pkm
+delete pkm
+delete boxed
+select * from pkm
+select * from boxed
+select * from boxed FETCH pkm
+select * from boxed FETCH out
+select * from boxed FETCH out as pkm
+select * from boxed FETCH out
+select * from pkm where <-boxed.id
+select <-boxed.in from pkm
+select * from user
+select * from pkm
+select * from boxed
+select * from boxed fetch out
+select * from boxed
+UPDATE pkm SET <-boxed.slot = 12 WHERE box = 0 AND slot = 0
+UPDATE pkm SET <-boxed.slot = 12 WHERE <-boxed.box = 0 AND <-boxed.slot = 0
+select * from boxed
+select * from boxed WHERE box = 0 and slot = 0
+UPDATE pkm SET <-boxed.slot = 12 WHERE <-boxed.box = [0] AND <-boxed.slot = [0]
+select * from boxed WHERE box = 0 and slot = 12
+UPDATE pkm SET <-boxed.slot = 12 WHERE <-boxed.box = [0] AND <-boxed.slot = [0]
+UPDATE pkm SET <-boxed.slot = 12 WHERE <-boxed.box = [0] AND <-boxed.slot = 0
+UPDATE pkm SET <-boxed.slot = 12 WHERE <-boxed.box = [0] AND <-boxed.slot = [0]
+select * from boxed
+UPDATE boxed SET slot = 12 WHERE box = 0 AND slot = 0
+select * from boxed
