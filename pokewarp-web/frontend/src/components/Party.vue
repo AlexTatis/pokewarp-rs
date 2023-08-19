@@ -41,7 +41,7 @@ emitter.on("saveParsed", parsedParty => party.value = parsedParty)
 </script>
 
 <template>
-    <draggable id="party" v-model="party" class="flex flex-col gap-3" :animation="300" group="pkm" :move="onMove" @end="onEnd">
+    <draggable id="party" v-model="party" class="flex flex-col gap-3" :animation="300" group="pkm" :move="onMove" @end="onEnd" item-key="id">
         <template #item="{ element: pkm }">
             <PartySlot :pkm="pkm" />
         </template>

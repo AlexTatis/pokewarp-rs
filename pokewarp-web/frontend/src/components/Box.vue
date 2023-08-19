@@ -70,7 +70,7 @@ async function onEnd() {
 
 <template>
     <draggable id="box" v-model="boxes" class="md:grid grid-cols-6 grid-rows-5 gap-5 flex flex-wrap justify-evenly" :class="{'blur': !isLoggedIn}"
-        :group="isLoggedIn ? 'pkm' : ''" filter=".no-drag" :move="onMove" @end="onEnd">
+        :group="isLoggedIn ? 'pkm' : ''" filter=".no-drag" :move="onMove" @end="onEnd" item-key="id">
         <template #item="{ element: pkm }">
             <BoxSlot :pkm="pkm" :class="{'no-drag': !isLoggedIn }" />
         </template>
